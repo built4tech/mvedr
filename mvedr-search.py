@@ -153,8 +153,6 @@ def parse_xml(xml_file):
     return (query_name, query_description, query)
 
 if __name__ == '__main__':
-    user = 'JC4MH4YFML-ADMIN-FRA@mvisionedr.technology'
-    password = 'Mu7)Zy^w/}.}nm8/F;'
  
     xmlfile_path = CURRENT_DIR + os.sep + XMLFILE
     (query_name, query_description, query) = parse_xml(xmlfile_path)
