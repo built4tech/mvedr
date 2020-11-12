@@ -1,4 +1,6 @@
-﻿# Mvision EDR 
+﻿Author: Carlos Muñoz
+___
+# Mvision EDR 
 
 The Sans institute in its Digital Forensics & Incident Response poster publication [https://digital-forensics.sans.org/media/DFPS_FOR508_v4.3_12-18.pdf] stress the importance to monitor certain data sources like Event Logs, registry and File system to identify how attackers move arround the victim network.
 
@@ -9,7 +11,7 @@ The amount of information that can be stored on the event viewer of each worksta
 
 ## Event IDs collected  and basic explanation of each event:
 
-* _Getsystemevents.ps1: 7034,7035,7036,7040,7045
+* **_Getsystemevents.ps1:** 7034, 7035, 7036, 7040, 7045
 
 Event ID | Brief Description
 --- | --- 
@@ -19,7 +21,7 @@ Event ID | Brief Description
 7040 | Service Start type changed
 7045 | A service was installed on the system
 
-* _Getsecurityevents.ps1: 4624,4648,4672,4697,4698,4699,4700,4701,4702,5140
+* **_Getsecurityevents.ps1:** 4624,4648,4672,4697,4698,4699,4700,4701,4702,5140
 
 Event ID | Brief Description
 --- | --- 
@@ -36,7 +38,7 @@ Event ID | Brief Description
 
 For more detail information of each event take a look to the mentioning Sans publication or google the id of the event.
 
-### Setup
+## Setup
 
 * Logon into Mvision EDR
 * Go to Menu / Catalog /Collectors
@@ -57,11 +59,11 @@ msg | String | Yes
 
 * Repeat the same instructions in order to create the second custom collector (_Getsecurityevents.ps1) the collector output is exactly the same so you can use the same structure as before.
 
-### Real Time Search
+## Real Time Search
 
 Go to Menu / Real-time Search and start using your new collectors, I have been able to test the collectors on Windows 7, Windows 8.1 and Windows 10.
 
-Query example:
+**Query example:**
 
 * _Getsecuritylogs date, hostname, eventid, msg, hint where _Getsecuritylogs hostname equals Windows10 and _Getsecuritylogs eventid equals 4648
 
