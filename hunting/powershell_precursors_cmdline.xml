@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<!--
+    Presence: Powershell ShortHand Syntax
+
+   Powershell has short-hand syntax for its language to ease the use.
+   A short-hand is different than a powershell `alias`.
+
+   A short-hand can be identified as:
+       -iex    shorthand for the commandlet Invoke-Expresion
+
+   Therefore, by hunting for commandline usage, we can save ourselves work and explore how
+   that language is being used, and possibly if present, where it occurred.
+
+       We:
+           - Focus our hunt on the parameters
+-->
+<query>
+    <name>Powershell Precursors cmdline</name>
+    <description>CommandLineHistory command_line where
+        CommandLineHistory command_line contains "-exec bypass -e"
+        OR CommandLineHistory command_line contains "-NoP -NonI -W Hidden -E"
+        OR CommandLineHistory command_line contains "-noni -nop -w hidden -e"
+        OR CommandLineHistory command_line contains "-nop -w hidden -e"
+        OR CommandLineHistory command_line contains "-nop -w hidden -encodedcommand"
+        OR CommandLineHistory command_line contains "-w hidden -en"
+        OR CommandLineHistory command_line contains "-nop -w hidden -exec bypass -enc"
+        OR CommandLineHistory command_line contains "-nop -exec bypass encodedcommand"
+        OR CommandLineHistory command_line contains "-nop -sta -w 1 -enc"
+        OR CommandLineHistory command_line contains "-nop -w hidden -exec bypass -enc"    
+    </description>
+    <projections>[
+                    {
+                        "name": "CommandLineHistory",
+                        "outputs": 
+                            [
+                                "command_line"
+                            ]
+                    }
+                ]
+    </projections>
+    <condition>{
+                    "or": 
+                        [
+                            {
+                                "and": 
+                                    [
+                                        {
+                                            "name": "CommandLineHistory",
+                                            "output": "command_line",
+                                            "op": "CONTAINS",
+                                            "value": "-exec bypass -e"
+                                        }
+                                    ]
+                            }, 
+                            {
+                                "and": 
+                                    [
+                                        {
+                                            "name": "CommandLineHistory",
+                                            "output": "command_line",
+                                            "op": "CONTAINS",
+                                            "value": "-NoP -NonI -W Hidden -E"
+                                        }
+                                    ]
+                            },
+                            {
+                                "and": 
+                                    [
+                                        {
+                                            "name": "CommandLineHistory",
+                                            "output": "command_line",
+                                            "op": "CONTAINS",
+                                            "value": "-noni -nop -w hidden -e"
+                                        }
+                                    ]
+                            },
+                            {
+                                "and": 
+                                    [
+                                        {
+                                            "name": "CommandLineHistory",
+                                            "output": "command_line",
+                                            "op": "CONTAINS",
+                                            "value": "-nop -w hidden -e"
+                                        }
+                                    ]
+                            },
+                            {
+                                "and": 
+                                    [
+                                        {
+                                            "name": "CommandLineHistory",
+                                            "output": "command_line",
+                                            "op": "CONTAINS",
+                                            "value": "-nop -w hidden -encodedcommand"
+                                        }
+                                    ]
+                            },
+                            {
+                                "and": 
+                                    [
+                                        {
+                                            "name": "CommandLineHistory",
+                                            "output": "command_line",
+                                            "op": "CONTAINS",
+                                            "value": "-w hidden -en"
+                                        }
+                                    ]
+                            },
+                            {
+                                "and": 
+                                    [
+                                        {
+                                            "name": "CommandLineHistory",
+                                            "output": "command_line",
+                                            "op": "CONTAINS",
+                                            "value": "-nop -w hidden -exec bypass -enc"
+                                        }
+                                    ]
+                            },
+                            {
+                                "and": 
+                                    [
+                                        {
+                                            "name": "CommandLineHistory",
+                                            "output": "command_line",
+                                            "op": "CONTAINS",
+                                            "value": "-nop -exec bypass encodedcommand"
+                                        }
+                                    ]
+                            },
+                            {
+                                "and": 
+                                    [
+                                        {
+                                            "name": "CommandLineHistory",
+                                            "output": "command_line",
+                                            "op": "CONTAINS",
+                                            "value": "-nop -sta -w 1 -enc"
+                                        }
+                                    ]
+                            },
+                            {
+                                "and": 
+                                    [
+                                        {
+                                            "name": "CommandLineHistory",
+                                            "output": "command_line",
+                                            "op": "CONTAINS",
+                                            "value": "-nop -w hidden -exec bypass -enc"
+                                        }
+                                    ]
+                            }
+                        ]
+                }
+    </condition>
+    <aggregated>"true"</aggregated>
+</query>

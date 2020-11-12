@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!--
+The WMI Provider Host process is an important part of Windows, and often runs in the background. 
+It allows other applications on your computer to request information about your system. 
+This process shouldn’t normally use many system resources, but it may use a lot of CPU if another process on your system is 
+behaving badly.
+    
+The following query shows the processese executed by wmiprvse.exe parent process. To test it execute from cli 
+wmic process call create notepad.exe, it should open a process notepad being its parent wmiprvse.exe
+
+To test this rule execute wmic process call create notepad.exe, this line should open the notepad application being the parent process
+wmiprvse.exe
+
+HostInfo hostname AND ProcessHistory parentname, name, id, cmdline WHERE ProcessHistory parentname equals "wmiprvse.exe"
+-->
+<query>
+    <name>suspicious wmiprevse.exe</name>
+    <description>HostInfo hostname AND ProcessHistory parentname, name, id, cmdline WHERE ProcessHistory parentname equals "wmiprvse.exe"</description>
+    <projections>[
+                    {
+                        "name": "HostInfo",
+                        "outputs": 
+                            [
+                                "hostname"
+                            ]
+                    },
+                    {
+                        "name": "ProcessHistory",
+                        "outputs": 
+                            [
+                                "parentname",
+                                "name",
+                                "id",
+                                "cmdline"
+                            ]
+                    }
+                ]
+    </projections>
+    <condition>{
+                    "or": 
+                        [
+                            {
+                                "and": 
+                                    [
+                                        {
+                                            "name": "ProcessHistory",
+                                            "output": "parentname",
+                                            "op": "EQUALS",
+                                            "value": "wmiprvse.exe"
+
+                                        }
+                                    ]
+                            }
+                        ]
+                }
+    </condition>
+    <aggregated>"true"</aggregated>
+</query>

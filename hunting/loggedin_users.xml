@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+
+    Get all logged users from all systems ( Note: depending on the number of workstations this query can generate many information)
+
+    LoggedInUsers username and HostInfo hostname 
+-->
+<query>
+    <name>Loggedin Users</name>
+    <description>LoggedInUsers username and HostInfo hostname</description>
+    <projections>[
+                    {
+                        "name": "LoggedInUsers",
+                        "outputs": 
+                            [
+                                "username"
+                            ]
+                    },
+                                        {
+                        "name": "HostInfo",
+                        "outputs": 
+                            [
+                                "hostname"
+                            ]
+                    }
+                ]
+    </projections>
+    <condition>{}
+    </condition>
+    <aggregated>"true"</aggregated>
+</query>

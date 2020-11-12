@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!--
+    EJEMPLOS DEL CONSULTAS
+    
+Consulta corta con muy pocas lineas de salida
+    query = {'projections': [{'name':'HostInfo', 'outputs': ['hostname', 'ip_address']}], 'aggregated': 'true'}
+Consulta larga con muchas lineas de salida
+    query = {'projections': [{'name':'HostInfo', 'outputs': ['hostname']},{'name':'Processes', 'outputs': ['name', 'id']}], 'aggregated': 'true'}
+
+-->
+<query>
+    <name>Processes query</name>
+    <description>Processes name, id where Processes name equals "csrss" and Processes name contains "exe" or Processes size not greater than 200</description>
+    <projections>[
+                    {
+                        "name": "Processes",
+                        "outputs": 
+                            [
+                                "name", 
+                                "id"
+                            ]
+                    }
+                ]
+    </projections>
+    <condition>{
+                    "or": 
+                        [
+                            {
+                                "and": 
+                                    [
+                                        {
+                                            "name": "Processes",
+                                            "output": "name",
+                                            "op": "EQUALS",
+                                            "value": "csrss"
+                                        }, 
+                                        {
+                                            "name": "Processes",
+                                            "output": "name",
+                                            "op": "CONTAINS",
+                                            "value": "exe"
+                                        }
+                                    ]
+                            }, 
+                            {
+                                "and": 
+                                    [
+                                        {
+                                            "name": "Processes",
+                                            "output": "size",
+                                            "op": "GREATER_THAN",
+                                            "value": "200",
+                                            "negated": "true"
+                                        }
+                                    ]
+                            }
+                        ]
+                }
+    </condition>
+    <aggregated>"true"</aggregated>
+</query>

@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!--
+
+    https://digital-forensics.sans.org/media/DFPS_FOR508_v4.3_12-18.pdf
+
+Image Path: %SystemRoot%\System32\lsass.exe
+Parent Process: wininit.exe
+Number of Instances: One
+User Account: Local System
+Start Time: Within seconds of boot time
+Description: The Local Security Authentication Subsystem Service process is responsible for authenticating users by
+calling an appropriate authentication package specified in HKLM\SYSTEM\CurrentControlSet\Control\Lsa.
+Typically, this will be Kerberos for domain accounts or MSV1_0 for local accounts. In addition to authenticating
+users, lsass.exe is also responsible for implementing the local security policy (such as password policies and
+audit policies) and for writing events to the security event log. Only one instance of this process should occur and it
+should not have child processes. 
+    
+LSASS should be launched by wininit.exe
+
+The following query shows those lsass.exe proccesses which parentname is not wininit.exe
+
+HostInfo hostname AND ProcessHistory parentname, name, id, cmdline WHERE ProcessHistory parentname not equals "wininit.exe" 
+         AND ProcessHistory name equals "lsass.exe
+-->
+<query>
+    <name>supicios svchost.exe</name>
+    <description>HostInfo hostname AND ProcessHistory parentname, name, id, cmdline WHERE ProcessHistory parentname not equals "wininit.exe" AND ProcessHistory name equals "lsass.exe"</description>
+    <projections>[
+                    {
+                        "name": "HostInfo",
+                        "outputs": 
+                            [
+                                "hostname"
+                            ]
+                    },
+                    {
+                        "name": "ProcessHistory",
+                        "outputs": 
+                            [
+                                "parentname",
+                                "name",
+                                "id",
+                                "cmdline"
+                            ]
+                    }
+                ]
+    </projections>
+    <condition>{
+                    "or": 
+                        [
+                            {
+                                "and": 
+                                    [
+                                        {
+                                            "name": "ProcessHistory",
+                                            "output": "parentname",
+                                            "op": "EQUALS",
+                                            "value": "wininit.exe",
+                                            "negated": "true"
+                                        }, 
+                                        {
+                                            "name": "ProcessHistory",
+                                            "output": "name",
+                                            "op": "EQUALS",
+                                            "value": "lsass.exe"
+                                        }
+                                    ]
+                            }
+                        ]
+                }
+    </condition>
+    <aggregated>"true"</aggregated>
+</query>
