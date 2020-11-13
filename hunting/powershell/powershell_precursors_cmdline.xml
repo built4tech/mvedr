@@ -1,18 +1,26 @@
 <?xml version="1.0"?>
 <!--
-    Presence: Powershell ShortHand Syntax
 
-   Powershell has short-hand syntax for its language to ease the use.
-   A short-hand is different than a powershell `alias`.
+    **********************************************************************************************************************************
+    Date: 13th of November 2020
+    Author: Carlos Munoz
+    Email: carlos_munozgarrido@mcafee.com
+    External reference: https://github.com/mcafee/RTS-Queries
+    ***************************************
+    Description: Presence: of Powershell ShortHand Syntax invoke by interactive use in command line
 
-   A short-hand can be identified as:
+    Powershell has short-hand syntax for its language to ease the use.
+    A short-hand is different than a powershell `alias`.
+
+    A short-hand can be identified as:
        -iex    shorthand for the commandlet Invoke-Expresion
 
-   Therefore, by hunting for commandline usage, we can save ourselves work and explore how
-   that language is being used, and possibly if present, where it occurred.
+    Therefore, by hunting for commandline usage, we can save ourselves work and explore how
+    that language is being used, and possibly if present, where it occurred.
 
        We:
            - Focus our hunt on the parameters
+    **********************************************************************************************************************************
 -->
 <query>
     <name>Powershell Precursors cmdline</name>

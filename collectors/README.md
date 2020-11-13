@@ -1,4 +1,9 @@
-﻿Author: Carlos Muñoz
+﻿___
+
+    Date: 13th of November 2020
+    Author: Carlos Munoz
+    Email: carlos_munozgarrido@mcafee.com
+
 ___
 # Mvision EDR 
 

@@ -5,11 +5,12 @@ import os
 import time
 import logging
 import xml.etree.ElementTree as ET
+from credenciales import user, password
 
 # Path actual
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 # Fichero con consulta XML
-XMLFILE = 'hunting' + os.sep + 'incoming_connections.xml'
+XMLFILE = 'hunting' + os.sep + 'service_crashed.xml'
 
 # Configure local logger
 # Enable logging, this will also direct built-in DXL log messages.

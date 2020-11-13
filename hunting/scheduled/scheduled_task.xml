@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!--
+    **********************************************************************************************************************************
+    Date: 13th of November 2020
+    Author: Carlos Munoz
+    Email: carlos_munozgarrido@mcafee.com
+    External reference: https://digital-forensics.sans.org/media/DFPS_FOR508_v4.3_12-18.pdf
+
+    ***************************************
+    Description:
+
+    This query uses _Getsecurityevents.ps1 custom collector (check folder collectors).
+
+    Check if there is any scheduled task created, updated or enabled during the last day (The custom collector limits 
+    the information obtained to the last day).
+
+    * Event 4698 indicates that a new scheduled task has been created, 
+    * Event 4700 indicates that a task has been enabled 
+    * Event 4702 indicates that a task has been updated.
+    
+    Scheduled tasks can be a signal of malware persistance 
+    
+    _Getsecuritylogs hostname, eventid, msg where _Getsecuritylogs eventid equals 4698 or  _Getsecuritylogs eventid equals 4700 
+                                                                                       or  _Getsecuritylogs eventid equals 4702
+        
+    **********************************************************************************************************************************
+-->
+<query>
+    <name>Scheduled Task</name>
+    <description>_Getsecuritylogs hostname, eventid, msg where _Getsecuritylogs eventid equals 4698 or  _Getsecuritylogs eventid equals 4700 or  _Getsecuritylogs eventid equals 4702</description>
+    <projections>[
+                    {
+                        "name": "_Getsecuritylogs",
+                        "outputs": 
+                            [
+                                "hostname", 
+                                "eventid",
+                                "msg"
+                            ]
+                    }
+                ]
+    </projections>
+    <condition>{
+                    "or": 
+                        [
+                            {
+                                "and": 
+                                    [
+                                        {
+                                            "name": "_Getsecuritylogs",
+                                            "output": "eventid",
+                                            "op": "EQUALS",
+                                            "value": "4698"
+                                        }
+                                    ]
+                            },
+                            {
+                                "and": 
+                                    [
+                                        {
+                                            "name": "_Getsecuritylogs",
+                                            "output": "eventid",
+                                            "op": "EQUALS",
+                                            "value": "4700"
+                                        }
+                                    ]
+                            },
+                            {
+                                "and": 
+                                    [
+                                        {
+                                            "name": "_Getsecuritylogs",
+                                            "output": "eventid",
+                                            "op": "EQUALS",
+                                            "value": "4702"
+                                        }
+                                    ]
+                            }
+                        ]
+                }
+    </condition>
+    <aggregated>"true"</aggregated>
+</query>

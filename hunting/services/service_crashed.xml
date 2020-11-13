@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+    **********************************************************************************************************************************
+    Date: 13th of November 2020
+    Author: Carlos Munoz
+    Email: carlos_munozgarrido@mcafee.com
+    External reference: https://digital-forensics.sans.org/media/DFPS_FOR508_v4.3_12-18.pdf
+
+    ***************************************
+    Description:
+
+    This query uses _Getsystemevents.ps1 custom collectors (check folder collectors).
+
+    Check if there is any new service creaetd during the last day.
+
+    * The system event 7034 by the service control manager source indicates that a service crashed unexpectedly    
+   
+    _Getsystemlogs hostname, eventid, msg where _Getsystemlogs eventid equals 7034
+        
+    **********************************************************************************************************************************
+-->
+<query>
+    <name>Service crashed</name>
+    <description>_Getsystemlogs hostname, eventid, msg where _Getsystemlogs eventid equals 7034</description>
+    <projections>[
+                    {
+                        "name": "_Getsystemlogs",
+                        "outputs": 
+                            [
+                                "hostname", 
+                                "eventid",
+                                "msg"
+                            ]
+                    }
+                ]
+    </projections>
+    <condition>{
+                    "or": 
+                        [
+                            {
+                                "and": 
+                                    [
+                                        {
+                                            "name": "_Getsystemlogs",
+                                            "output": "eventid",
+                                            "op": "EQUALS",
+                                            "value": "7034"
+                                        }
+                                    ]
+                            }
+                        ]
+                }
+    </condition>
+    <aggregated>"true"</aggregated>
+</query>

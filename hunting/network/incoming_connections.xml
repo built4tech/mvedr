@@ -1,7 +1,15 @@
 <?xml version="1.0"?>
 <!--
-    Show me all incoming connections in all systems in connected state
-
+    **********************************************************************************************************************************
+    Date: 13th of November 2020
+    Author: Carlos Munoz
+    Email: carlos_munozgarrido@mcafee.com
+    ***************************************
+    Description:
+    
+    Show all incoming connections in all systems in connected state
+    
+    **********************************************************************************************************************************
 -->
 <query>
     <name>Incoming connections</name>

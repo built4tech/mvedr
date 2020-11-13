@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+    **********************************************************************************************************************************
+    Date: 13th of November 2020
+    Author: Carlos Munoz
+    Email: carlos_munozgarrido@mcafee.com
+    External reference: https://digital-forensics.sans.org/media/DFPS_FOR508_v4.3_12-18.pdf
+
+    ***************************************
+    Description:
+
+    This query uses _Getsecurityevents.ps1 custom collector (check folder collectors).
+
+    Check all logon operation by users with administrative privileges happened during the last day (The custom collector limits 
+    the information obtained to the last day).
+
+    The event 4672 indicates that a user with administrative privileges logon into the system, this is a requirement for accesing
+    default shares such as C$ and Admin$ 
+    
+    _Getsecuritylogs hostname, eventid, msg where _Getsecuritylogs eventid equals 4672
+        
+    **********************************************************************************************************************************
+-->
+<query>
+    <name>Admin  connection</name>
+    <description>_Getsecuritylogs hostname, eventid, msg where _Getsecuritylogs eventid equals 4672</description>
+    <projections>[
+                    {
+                        "name": "_Getsecuritylogs",
+                        "outputs": 
+                            [
+                                "hostname", 
+                                "eventid",
+                                "msg"
+                            ]
+                    }
+                ]
+    </projections>
+    <condition>{
+                    "or": 
+                        [
+                            {
+                                "and": 
+                                    [
+                                        {
+                                            "name": "_Getsecuritylogs",
+                                            "output": "eventid",
+                                            "op": "EQUALS",
+                                            "value": "4672"
+                                        }
+                                    ]
+                            }
+                        ]
+                }
+    </condition>
+    <aggregated>"true"</aggregated>
+</query>
