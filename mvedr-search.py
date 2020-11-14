@@ -3,27 +3,18 @@ import json
 import sys
 import os
 import time
-import logging
 import xml.etree.ElementTree as ET
 import argparse
 import glob
-from credenciales import user, password
+from common import logger
 
-# Path actual
+# Definition of Global variables
+
+# Current Path
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Configure local logger
-# Enable logging, this will also direct built-in DXL log messages.
-# See - https://docs.python.org/2/howto/logging-cookbook.html
-log_formatter = logging.Formatter('%(asctime)s %(name)s - %(levelname)s - %(message)s')
-
-console_handler = logging.StreamHandler()
-console_handler.setFormatter(log_formatter)
-
-logger = logging.getLogger()
-logger.addHandler(console_handler)
-logger.setLevel(logging.INFO)
-
+# Maximum number of returned lines per page
+PAGE_SIZE = 25
 
 class MvEDR():
     def __init__(self, region, user, password):
@@ -180,6 +171,10 @@ def parseargs():
     parser.add_argument('-o', required=False, default="json", action='store', dest='output', choices=['json', 'csv', 'pdf'], 
                         help=arg_help, metavar="")
 
+    arg_help = "Data Center Location"
+    parser.add_argument('-c', required=False, default="EU", action='store', dest='datacenter', choices=['EU', 'US'], 
+                        help=arg_help, metavar="")
+
     parser.add_argument('--version', action='version', version='Carlos Munoz (carlos.munozgarrido@mcafee.com)\n%(prog)s 1.0 (13/11/2020)')
 
     return parser.parse_args()
@@ -194,7 +189,21 @@ def is_folder(input_value):
         return is_folder
 
 def check_query_status(id, mvedr):
+
+    def spinner(seconds):
+        now = time.time()
+        future = now + seconds
+        char = "*"
+        i = 0
+        while time.time() < future:
+            print('[{:50s}]'.format(char*i), end="\r")
+            i += 1
+            time.sleep(0.20)
+        print('[{:50s}]'.format(" "*i), end="\r")
+        return
+
     error_count = 0
+    logger.info("[+] Proccesing query")
     while True:        
         try:
             query_value = mvedr.query_status(id)
@@ -202,9 +211,10 @@ def check_query_status(id, mvedr):
             if status == "FINISHED" or error_count == 3:
                 break
             else:
-                logger.info("[+] Proccesing query")
-                logger.info(query_value)
-                time.sleep(10)
+                #logger.info("[+] Proccesing query")
+                #logger.info(query_value)
+                spinner(10)
+                #time.sleep(10)
         except Exception as error:
             error_count += 1
 
@@ -214,10 +224,11 @@ def check_query_status(id, mvedr):
     return query_value
 
 
+
 def main():
     option = parseargs()
 
-    DC = "EU"
+    datacenter = option.datacenter
     username = option.username
     password = option.password
 
@@ -234,7 +245,7 @@ def main():
         sys.exit()
 
     try:
-        mvedr = MvEDR(DC, username, password)
+        mvedr = MvEDR(datacenter, username, password)
     except ValueError as error:
         logger.error(error)
         sys.exit()
@@ -292,8 +303,7 @@ def main():
         total_lines = query_value['results']
 
         # Code to go through the returned content
-        page = 25 # Show 25 lines per page
-        for i in range(0, int(total_lines), page):
+        for i in range(0, int(total_lines), PAGE_SIZE):
             offset = i
             limit  = offset + page
             try:
@@ -306,86 +316,6 @@ def main():
             logger.info(results)
 
         logger.info('[+] End process for query')
-
-
-
-def backup():
-    XMLFILE = 'hunting\\users\\admin_connection.xml'
-    xmlfile_path = CURRENT_DIR + os.sep + XMLFILE
-    (query_name, query_description, query) = parse_xml(xmlfile_path)
-
-    try:
-        EDR = MvEDR('EU', user, password)
-    except ValueError as error:
-        logger.error(error)
-        sys.exit()
-    except Exception as error:
-        logger.error(error)
-        sys.exit()
-
-    logger.info('[+] Autenticación realizada')
-
-    try:
-        query_request = EDR.query(query)
-    except Exception as error:
-        logger.error(error)
-        sys.exit()
-
-    logger.info('[+] Ejecutando consulta {}'.format(query_name))
-    logger.info('[+] Descripción \t{}'.format(query_description))
-    logger.info(query_request)
-
-    try:
-        id = query_request['id']
-    except Exception as error:
-        logger.error('[¡] Error al obtener el identificador de la consulta')
-        logger.error(error)
-        sys.exit()
-    
-    error_count = 0
-    while True:        
-        try:
-            query_value = EDR.query_status(id)
-            status = query_value['status']
-            if status == "FINISHED" or error_count == 3:
-                break
-            else:
-                logger.info("[+] Consulta en proceso")
-                logger.info(query_value)
-                time.sleep(10)
-        except Exception as error:
-            logger.error(error)
-            error_count += 1
-            #sys.exit()
-
-    if error_count == 3:
-        logger.error('[!] Demasidados errores detectados al comprobar el estado de la consulta')
-        sys.exit()
-
-    logger.info('[+] Consulta finalizada')
-    logger.info(query_value)
-    logger.info('[+] Obteniendo information')
-    # Obteniendo el volumen de lineas devueltas
-    total_lines = query_value['results']
-
-    # Rutina para recorrer el total de lineas de forma paginas 
-    page = 25
-    for i in range(0, int(total_lines), page):
-        offset = i
-        limit  = offset + page
-        try:
-            results = EDR.getQueryData(id, offset=i, limit=limit)
-        except Exception as error:
-            logger.error(error)
-
-        logger.info("[+] Resultados - valores desde {} a {}".format(offset, limit))
-        logger.info(results)
-
-    logger.info('[+] Fin del proceso')
-
- 
-
-
 
 if __name__ == '__main__':
     main()
