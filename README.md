@@ -53,6 +53,7 @@ pip install -r requirements.txt
 
 * **Sample 1**, Query all incoming connections, showing the information on the console
 
+```
  python .\mvedr-search.py -u "USER_NAME" -p "PASSWORD" -i .\hunting\network\incoming_connections.xml
 
 2020-11-17 09:09:30,675 root - INFO - [+] Successful authentication
@@ -64,10 +65,11 @@ pip install -r requirements.txt
 2020-11-17 09:11:45,175 root - INFO - [+] Query result - values from 0 to 25
 
 {"startIndex": 0, "itemsPerPage": 25, "currentItemCount": 12, "totalItems": 12, "items": [{"output": {"HostInfo|hostname": "WINDOWS81", "HostInfo|ip_address": "10.0.0.8", "NetworkFlow|src_ip": "10.0.0.7", "NetworkFlow|dst_port": 139}, "count": 48, "created_at": "2020-11-17T08:10:00.013Z", "id": "939e156e4d8d3276abe8ee70572159c1"}, {"output": {"HostInfo|hostname": "WINDOWS10", "HostInfo|ip_address": "10.0.0.10", "NetworkFlow|src_ip": "10.0.0.8", "NetworkFlow|dst_port": 5357}, "count": 20, "created_at": "2020-11-17T08:10:01.013Z", "id": "11a231b57ba461da0386e17d6d32c901"}, {"output": {"HostInfo|hostname": "WINDOWS7", "HostInfo|ip_address": "10.0.0.7", "NetworkFlow|src_ip": "10.0.0.8", "NetworkFlow|dst_port": 139}, "count": 18, "created_at": "2020-11-17T08:10:00.926Z", "id": "94c2754658de4960e9a5a2c913dba08a"}, {"output": {"HostInfo|hostname": "WINDOWS7", "HostInfo|ip_address": "10.0.0.7", "NetworkFlow|src_ip": "10.0.0.8", "NetworkFlow|dst_port": 5357}, "count": 15, "created_at": "2020-11-17T08:10:00.926Z", "id": "ecc71348be9a3f55ce81b56e18163bdf"}, {"output": {"HostInfo|hostname": "WINDOWS81", "HostInfo|ip_address": "10.0.0.8", "NetworkFlow|src_ip": "10.0.0.10", "NetworkFlow|dst_port": 5357}, "count": 12, "created_at": "2020-11-17T08:10:00.013Z", "id": "b9bd58c953af4c9ddcf045bd75a2fada"}, {"output": {"HostInfo|hostname": "WINDOWS7", "HostInfo|ip_address": "10.0.0.7", "NetworkFlow|src_ip": "10.0.0.10", "NetworkFlow|dst_port": 5357}, "count": 11, "created_at": "2020-11-17T08:10:00.926Z", "id": "cac813fc480fefc1b199b3d2f9bd7a31"}, {"output": {"HostInfo|hostname": "WINDOWS10", "HostInfo|ip_address": "10.0.0.10", "NetworkFlow|src_ip": "10.0.0.7", "NetworkFlow|dst_port": 8081}, "count": 10, "created_at": "2020-11-17T08:10:01.013Z", "id": "f43eca115e24a8d604b34c29901c93ed"}, {"output": {"HostInfo|hostname": "WINDOWS7", "HostInfo|ip_address": "10.0.0.7", "NetworkFlow|src_ip": "10.0.0.8", "NetworkFlow|dst_port": 8081}, "count": 6, "created_at": "2020-11-17T08:10:00.926Z", "id": "6fb73c92adb777535f00a46613989a77"}, {"output": {"HostInfo|hostname": "WINDOWS10", "HostInfo|ip_address": "10.0.0.10", "NetworkFlow|src_ip": "10.0.0.8", "NetworkFlow|dst_port": 8081}, "count": 5, "created_at": "2020-11-17T08:10:01.013Z", "id": "8894d397bcd8aa43e6539d1c0ec8ca56"}, {"output": {"HostInfo|hostname": "WINDOWS10", "HostInfo|ip_address": "10.0.0.10", "NetworkFlow|src_ip": "10.0.0.7", "NetworkFlow|dst_port": 445}, "count": 1, "created_at": "2020-11-17T08:10:01.013Z", "id": "ba537fa9f8fd71d5d2d39adb4e66ee3b"}, {"output": {"HostInfo|hostname": "WINDOWS81", "HostInfo|ip_address": "10.0.0.8", "NetworkFlow|src_ip": "10.0.0.7", "NetworkFlow|dst_port": 8081}, "count": 1, "created_at": "2020-11-17T08:10:00.013Z", "id": "5f388b1e11236c3991836ca42db48052"}, {"output": {"HostInfo|hostname": "WINDOWS81", "HostInfo|ip_address": "10.0.0.8", "NetworkFlow|src_ip": "10.0.0.7", "NetworkFlow|dst_port": 445}, "count": 1, "created_at": "2020-11-17T08:10:00.013Z", "id": "6599e00911bdedefaf02384622aa3ab9"}]}
-
+```
 
 * **Sample 2**, Query all users related queries, showing the information on the console
 
+```
 python .\mvedr-search.py -u "USER_NAME" -p "PASSWORD" -i .\hunting\users\
 
 2020-11-17 09:16:42,509 root - INFO - [+] Successful authentication
@@ -91,8 +93,11 @@ python .\mvedr-search.py -u "USER_NAME" -p "PASSWORD" -i .\hunting\users\
 {"startIndex": 0, "itemsPerPage": 25, "currentItemCount": 3, "totalItems": 3, "items": [{"output": {"LoggedInUsers|username": "5Y5TEM_UPDATES", "HostInfo|hostname": "WINDOWS81"}, "count": 1, "created_at": "2020-11-17T08:18:40.995Z", "id": "4f333023ffa6f8a4bbf045bfbad5793a"}, {"output": {"LoggedInUsers|username": "5Y5TEM_UPDATES", "HostInfo|hostname": "WINDOWS7"}, "count": 1, "created_at": "2020-11-17T08:18:41.068Z", "id": "72e735aa500c6320938bd4bc04381b0f"}, {"output": {"LoggedInUsers|username": "5Y5TEM_UPDATES", "HostInfo|hostname": "WINDOWS10"}, "count": 1, "created_at": "2020-11-17T08:18:42.069Z", "id": "22caeeb7c236cdc4766dc9dbe795af22"}]}
 
 2020-11-17 09:19:48,408 root - INFO - [+] End process for query
+```
 
 * **Sample 3**, Query all users related queries, storing the information obtained on files in csv format
+
+```
 
 python .\mvedr-search.py -u "USER_NAME" -p "PASSWORD" -i .\hunting\users\ -o file -f csv
 
@@ -126,3 +131,4 @@ _Getsecuritylogs|hostname,_Getsecuritylogs|eventid,_Getsecuritylogs|msg,created_
 windows10,4672,Special privileges assigned to new logon.,2020-11-17T08:22:45.329Z,233
 windows81,4672,Special privileges assigned to new logon.,2020-11-17T08:22:46.021Z,225
 windows7,4672,Special privileges assigned to new logon.,2020-11-17T08:22:41.329Z,90
+```
