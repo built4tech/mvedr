@@ -20,22 +20,22 @@ Some of the queries, in the hunting folder requires a custom collector to be use
 For more information read the Readme file of collectors and hunting folders
 
 ## Command Line
-´´´
+```
 python \nmvedr-search.py -u Username -p Password -i file_name or folder [-c datacenter US|EU] [-o output file|screen] 
 [-f output format csv|json] 
-
+```
 **Required parameters**
-
+```
 -u Username: Mvision EDR Username
 -p Password: Mvision EDR Password
 -i Input value: It can be a query xml file or a folder, if it's a folder the script will execute all query xml found secuencially.
-
+```
 **Optional parameters**
-
+```
 -c Datacenter: Datacenter where Mvision EDR tenant is located, possible values are EU and US. Default value EU
 -o output: Where the information returned will be shown, possible values are file or screen. If file is chosen a folder call output on the root of the project will be created, output files will be created there. Default value screen
 -f format: Only applies when -o equals file, possible values are json and csv. Default value csv
-´´´
+```
 ## Installation
 
 * **Step 1:** Clone the repository. 
