@@ -11,7 +11,7 @@ Tool that allows to execute queries to Mvision EDR from command line, showing th
 
 Queries files are stored in xml format on the ./hunting folder, the query defines the collectors, conditions and aggregation parameters, the query file is parsed and transformed into a Mvision EDR standard format query.
 
-Queries files are organized in folders according with its category (for example network, processes or users categories), the -i parameter can point to the query file to be executed but it can also points to the folder category so all query files in the folder will be executed secuencially.
+Queries files are organized in folders according with its category (for example network, processes or users categories), the -i parameter can point to the query file to be executed but it can also points to the folder category so all query files in the folder will be executed sequentially.
 
 By default the output of the tool is the console screen in json format, -o parameter can be set to file in order to store the result of the query in a file, the location of the file and the name of the file is set in code, being the folder ./output and a combination of date and query name for the file name. In case the -o parameter is set to file the default format will be changed to csv, the -f parameter only applies when the output of the query is sent to a file, allowing to force the output format to CSV o JSON.
 
