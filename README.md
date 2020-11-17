@@ -7,7 +7,7 @@
 ___
 # mvedr-search.py
 
-Tool that allows to execute queries to Mvision EDR from command line, showing the response in the console screen or in a file, supporting CSV and JSON format.
+Tool that allows to execute queries to Mvision EDR from command line, showing the response in the console screen or in a file, supporting CSV and JSON formats.
 
 Queries files are stored in xml format on the ./hunting folder, the query defines the collectors, conditions and aggregation parameters, the query file is parsed and transformed into a Mvision EDR standard format query.
 
@@ -15,38 +15,40 @@ Queries files are organized in folders according with its category (for example 
 
 By default the output of the tool is the console screen in json format, -o parameter can be set to file in order to store the result of the query in a file, the location of the file and the name of the file is set in code, being the folder ./output and a combination of date and query name for the file name. In case the -o parameter is set to file the default format will be changed to csv, the -f parameter only applies when the output of the query is sent to a file, allowing to force the output format to CSV o JSON.
 
-Some of the queries, in the hunting folder requires a custom collector to be used, the folder collectors shows the process to add two new collectors to Mvision EDR in charge of collecting logs events from the event viewer fo the systems.
+Some of the queries, in the hunting folder requires a custom collector to be used, the folder collectors shows the process to add two new collectors to Mvision EDR in charge of collecting logs events from the event viewer.
 
 For more information read the Readme file of collectors and hunting folders
 
 ## Command Line
-
+´´´
 python \nmvedr-search.py -u Username -p Password -i file_name or folder [-c datacenter US|EU] [-o output file|screen] 
 [-f output format csv|json] 
 
-Required parameters
+**Required parameters**
 
 -u Username: Mvision EDR Username
 -p Password: Mvision EDR Password
 -i Input value: It can be a query xml file or a folder, if it's a folder the script will execute all query xml found secuencially.
 
-Optional parameters
+**Optional parameters**
 
 -c Datacenter: Datacenter where Mvision EDR tenant is located, possible values are EU and US. Default value EU
 -o output: Where the information returned will be shown, possible values are file or screen. If file is chosen a folder call output on the root of the project will be created, output files will be created there. Default value screen
 -f format: Only applies when -o equals file, possible values are json and csv. Default value csv
-
+´´´
 ## Installation
 
-* Step 1: Clone the repository. 
+* **Step 1:** Clone the repository. 
 
 git clone https://github.com/built4tech/mvedr.git
 
-* Step 2: Add non standar modules, with the exception of the module requests, the rest of the modules used by this tool are part of the standard library
+* **Step 2:** Add non standard modules.
+ 
+ With the exception of the module requests, the rest of the modules used by this tool are part of the standard library
 
 pip install -r requirements.txt
 
-* Step 3: Execute the tool, see the examples section for help.
+* **Step 3:** Execute the tool, see the examples section for help.
 
 ## Examples
 
