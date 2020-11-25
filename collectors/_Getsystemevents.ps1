@@ -34,7 +34,12 @@ foreach ($log in $systemlogs){
     $id       = $log.Id   
     $msg      = $log.Message 
     # In case the msg has a comma replace it with a dot as MvEDR requires a comma separated table
-    $msg      = $msg -replace ',','.'
+    # $msg      = $msg -replace ',','.'
+
+    # Mvision EDR requires collectors to generate a CSV file, the description of the event might have commas
+    # the following line use scape characters to surround it between quote marks
+    $msg = "`"$msg`""
+
     $hint     = $eventHint[$id.ToString()]
     $line     = $time, $machine, $username, $source, $id, $msg, $hint -join ','
     write-output $line | out-file -FilePath $outfile -Append -Encoding utf8    

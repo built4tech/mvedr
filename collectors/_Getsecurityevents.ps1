@@ -44,8 +44,13 @@ foreach ($log in $seclogs){
     $msg      = $log.Message
     $index    = $log.Message.IndexOf(".")
     $msg      = $msg.Substring(0, $index+1)
+    
     # In case the msg has a comma replace it with a dot as MvEDR requires a comma separated table
-    $msg      = $msg -replace ',','.' 
+    # $msg      = $msg -replace ',','.' 
+
+    # Mvision EDR requires collectors to generate a CSV file, the description of the event might have commas
+    # the following line use scape characters to surround it between quote marks
+    $msg = "`"$msg`""
 
     $hint     = $eventHint[$id.ToString()]
 
