@@ -66,6 +66,8 @@ source | String | No
 eventid | String | Yes
 msg | String | Yes
 
+![Adding a new custom collector](../images/mvedr__cc_system_events.jpg)
+
 * Repeat the same instructions in order to create the second custom collector (_Getsecurityevents.ps1) the collector output is exactly the same so you can use the same structure as before.
 
 ### Real Time Search
@@ -76,11 +78,13 @@ Go to Menu / Real-time Search and start using your new collectors, I have been a
 
 * _Getsecuritylogs date, hostname, eventid, msg, hint where _Getsecuritylogs hostname equals Windows10 and _Getsecuritylogs eventid equals 4648
 
-A user connects to a server or runs a program locally using alternate credentials.  For instance a user maps a drive to a server but specifies a different user's credentials or opens a shortcut under RunAs by shift-control-right-clicking on the shortcut, selecting Run as..., and then filling in a different user's credentials in the dialog box that appears
+A user connects to a server or runs a program locally using alternative credentials.  For instance a user maps a drive to a server but specifies a different user's credentials or opens a shortcut under RunAs by shift-control-right-clicking on the shortcut, selecting Run as..., and then filling in a different user's credentials in the dialog box that appears
 
 This event is also logged when a process logs on as a different account such as when the Scheduled Tasks service starts a task as the specified user. Logged on user: specifies the original user account.
 
-* _Getsystemlogs date, hostname, eventid, msg, hint where _Getsystemlogs hostname equals Windows10 and _Getsystelogs eventid equals 7045
+![Adding a new custom collector](../images/mvedr__securitylogs.jpg)
+
+* _Getsystemlogs date, hostname, eventid, msg, hint where _Getsystemlogs hostname equals Windows10 and _Getsystemlogs eventid equals 7045
 
 Shows new services installed on the system
 
