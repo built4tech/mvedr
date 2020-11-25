@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+
+    **********************************************************************************************************************************
+    Date: 25th of November 2020
+    Author: Carlos Munoz
+    Email: carlos_munozgarrido@mcafee.com
+    External reference: https://ipinfo.io/
+    ***************************************
+
+    Description: 
+
+    The following query shows the location, parsing the public ip, of the connected devices
+
+    HostInfo hostname and _GetPublic_IP ip_address, country, city, region, postal, timezone, location, asn
+    
+    **********************************************************************************************************************************
+-->
+<query>
+    <name>Device Location</name>
+    <description>HostInfo hostname and _GetPublic_IP ip_address, country, city, region, postal, timezone, location, asn</description>
+    <projections>[
+                    {
+                        "name": "HostInfo",
+                        "outputs": 
+                            [
+                                "hostname"
+                            ]
+                    },
+                    {
+                        "name": "_GetPublic_IP",
+                        "outputs": 
+                            [
+                                "ip_address",
+                                "country",
+                                "city",
+                                "region",
+                                "postal",
+                                "timezone",
+                                "location",
+                                "asn"
+                            ]
+                    }
+                ]
+    </projections>
+    <condition>{}
+    </condition>
+    <aggregated>"true"</aggregated>
+</query>
