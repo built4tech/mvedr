@@ -104,6 +104,8 @@ When you use it it's interesting to analyze the count of systems, due to the agr
 * Paste the content of _publicipinfo.ps1 
 * In the collector output be sure that you define the following properties, the name of the properties and the Show by default check is your decision. 
 
+![Adding a new custom collector](../images/mvedr__add_cc_public_ip.jpg)
+
 Name | Type | Show by Default
 --- | --- | ---
 ip_address | IP | Yes
@@ -114,6 +116,8 @@ asn | String | Yes
 postal | String | Yes
 region | String | Yes
 timezone | String | Yes
+
+![Custom Collector output](../images/mvedr__cc_publicip_output.jpg)
 
 **Query example:**
 
