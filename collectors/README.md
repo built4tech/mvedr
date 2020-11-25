@@ -119,5 +119,5 @@ timezone | String | Yes
 
 * HostInfo hostname and _GetPublic_IP ip_address, country, city, region, postal, timezone, location, asn
 
-![MvEDR Real Time Search Image](./images/mvedr_getpublicip.jpg)
+![MvEDR Real Time Search Image](../images/mvedr_getpublicip.jpg)
 
