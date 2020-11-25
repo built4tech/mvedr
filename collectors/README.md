@@ -5,7 +5,11 @@
     Email: carlos_munozgarrido@mcafee.com
 
 ___
-# Mvision EDR 
+# Mvision EDR - Custom Collectors
+
+## Event Log Security and System Events
+
+### Description
 
 The Sans institute in its Digital Forensics & Incident Response poster publication [https://digital-forensics.sans.org/media/DFPS_FOR508_v4.3_12-18.pdf] stress the importance to monitor certain data sources like Event Logs, registry and File system to identify how attackers move arround the victim network.
 
@@ -14,7 +18,7 @@ _Getsecurityevents.ps1 and _Getsystemevents.ps1 are two custom collectors that a
 
 The amount of information that can be stored on the event viewer of each workstation can be huge, because of this both custom collectors limit the information obtained to the last 24 hours, and the event IDs to the list of Event IDs publised on the Sans Digital Forensic & Incident Response publication. Even taking into consideration this filter, it is recommended to use these collectors with additionally filters like hostname or specific event ID that allow to limit further the amount of information obtained.
 
-## Event IDs collected  and basic explanation of each event:
+### Event IDs collected  and basic explanation of each event:
 
 * **_Getsystemevents.ps1:** 7034, 7035, 7036, 7040, 7045
 
@@ -43,7 +47,7 @@ Event ID | Brief Description
 
 For more detail information of each event take a look to the mentioning Sans publication or google the id of the event.
 
-## Setup
+### Setup
 
 * Logon into Mvision EDR
 * Go to Menu / Catalog /Collectors
@@ -64,7 +68,7 @@ msg | String | Yes
 
 * Repeat the same instructions in order to create the second custom collector (_Getsecurityevents.ps1) the collector output is exactly the same so you can use the same structure as before.
 
-## Real Time Search
+### Real Time Search
 
 Go to Menu / Real-time Search and start using your new collectors, I have been able to test the collectors on Windows 7, Windows 8.1 and Windows 10.
 
@@ -80,5 +84,40 @@ This event is also logged when a process logs on as a different account such as 
 
 Shows new services installed on the system
 
+## GeoLocation information
 
+### Description
+
+McAfee Mvision EDR doesn't include, by default, a collector in charge of showing Geolocation information of the EDR clients. 
+
+_publicipinfo.ps1 is a Custom collector that uses a public service https://ipinfo.io/ to collect this information.
+
+When you use it it's interesting to analyze the count of systems, due to the agregation capability that Mvision EDR provides.
+
+### Setup
+
+* Logon into Mvision EDR
+* Go to Menu / Catalog /Collectors
+* Add a new Custom Collector 
+* Give it a name, it must start with _ (For instance _Getpublicip.ps1)
+* In collector content chose Windows Execute PowerShell Script
+* Paste the content of _publicipinfo.ps1 
+* In the collector output be sure that you define the following properties, the name of the properties and the Show by default check is your decision. 
+
+Name | Type | Show by Default
+--- | --- | ---
+ip_address | IP | Yes
+country | String | Yes
+city | String | No
+location | String | No
+asn | String | Yes
+postal | String | Yes
+region | String | Yes
+timezone | String | Yes
+
+**Query example:**
+
+* HostInfo hostname and _GetPublic_IP ip_address, country, city, region, postal, timezone, location, asn
+
+![MvEDR Real Time Search Image](./images/mvedr_getpublicip.jpg)
 
